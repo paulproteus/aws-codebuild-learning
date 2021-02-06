@@ -4,11 +4,11 @@ phases:
     commands:
       - docker version
       - $(aws ecr get-login --no-include-email)
-      - docker pull $CONTAINER_REPOSITORY_URL:$REF_NAME || true
+      - docker pull 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME || true
   build:
     commands:
-      - docker build -f Dockerfile.run-tests --cache-from $CONTAINER_REPOSITORY_URL:$REF_NAME --tag $CONTAINER_REPOSITORY_URL:$REF_NAME --tag $CONTAINER_REPOSITORY_URL:ref-$CODEBUILD_RESOLVED_SOURCE_VERSION .
+      - docker build -f Dockerfile.run-tests --cache-from 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME --tag 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME --tag 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:ref-$CODEBUILD_RESOLVED_SOURCE_VERSION .
   post_build:
     commands:
-      - docker push $CONTAINER_REPOSITORY_URL
+      - docker push 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo
 
