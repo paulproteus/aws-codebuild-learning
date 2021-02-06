@@ -3,8 +3,7 @@ phases:
   pre_build:
     commands:
       - docker version
-      - $(aws ecr get-login --no-include-email)
-      - docker pull 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME || true
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 053586689100.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
       - docker build -f Dockerfile.run-tests --cache-from 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME --tag 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:$REF_NAME --tag 053586689100.dkr.ecr.us-east-1.amazonaws.com/asheesh-private-ecr-demo:ref-$CODEBUILD_RESOLVED_SOURCE_VERSION .
